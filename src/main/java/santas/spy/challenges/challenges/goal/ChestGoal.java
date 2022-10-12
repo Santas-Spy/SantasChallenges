@@ -33,6 +33,10 @@ public class ChestGoal extends Goal {
         return new ChestGoal(goalItems, chestOffset[0], chestOffset[1], chestOffset[2]);
     }
 
+    /**
+     * TODO: This doesnt work properly for instances with 2x item stacks of less than 64.
+     * tested with Wheat x1, Wheat x1 and it returned true with only one item of wheat
+     * */
     @Override
     public boolean isSatisfied()
     {
@@ -42,12 +46,20 @@ public class ChestGoal extends Goal {
             SantasChallenges.PLUGIN.getLogger().warning("WARNING: Trying to check a non active goal");
             satisfied = false;
         } else {
+            ItemStack[] originalItems = chest.getInventory().getContents();
             for (ItemStack item : goalItems) {
-                if (!chest.getInventory().contains(item)) { //if the item isnt in the chest, its not satisfied
+                if (chest.getInventory().first(item) == -1) {   //first() returns -1 if the item was not found
                     satisfied = false;
+                    SantasChallenges.PLUGIN.getLogger().info("Missing: " + item.toString());
+                } else {
+                    int index = chest.getInventory().first(item);
+                    chest.getInventory().setItem(index, null);  //remove the item so it wont show up again in future passes
+                    SantasChallenges.PLUGIN.getLogger().info("Present: " + item.toString());
                 }
             }
+            chest.getInventory().setContents(originalItems);    //replace the items back to the original contents
         }
+
         return satisfied;
     }
 

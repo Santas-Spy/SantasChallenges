@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import santas.spy.challenges.challenges.ActiveChallenge;
 import santas.spy.challenges.challenges.ActiveChallengeList;
+import santas.spy.challenges.challenges.Challenge;
 import santas.spy.challenges.challenges.ChallengeList;
 import santas.spy.challenges.config.ChallengeLoader;
 import santas.spy.challenges.listeners.CommandListener;
@@ -44,7 +45,7 @@ public class SantasChallenges extends JavaPlugin
     @Override
     public void onEnable()
     {
-        System.out.println("Hello World!");
+        getLogger().info("Hello World!");
         PLUGIN = this;
         registerListeners();
         load();
@@ -55,7 +56,7 @@ public class SantasChallenges extends JavaPlugin
     public void onDisable()
     {
         save();
-        System.out.println("Bravo 6. Going Dark o7");
+        getLogger().info("Bravo 6. Going Dark o7");
     }
 
     private void registerListeners()
@@ -89,7 +90,12 @@ public class SantasChallenges extends JavaPlugin
      * */
     public void newChallenge(Player player, String name)
     {
-        ActiveChallenge challenge = islandMap.generateIsland(player, challenges.get(name));
-        player.teleport(challenge.startLocation);
+        Challenge challenge = challenges.get(name);
+        if (challenge != null) {
+            ActiveChallenge activeChallenge = islandMap.generateIsland(player, challenge);
+            player.teleport(activeChallenge.startLocation);
+        } else {
+            player.sendMessage("That challenge did not exist");
+        }
     }
 }

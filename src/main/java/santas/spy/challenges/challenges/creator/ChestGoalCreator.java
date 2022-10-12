@@ -65,7 +65,7 @@ public class ChestGoalCreator {
                 if (slot == 26) {           // confirm item
                     List<ItemStack> itemList = new ArrayList<>();
                     this.close();
-                    for (int i = 8; i < 18; i++) {                          //get all the items that were in the gui
+                    for (int i = 9; i < 18; i++) {                          //get all the items that were in the gui
                         if (gui.getItem(i) != null) {
                             ItemStack item = new ItemStack(gui.getItem(i)); //copy them
                             itemList.add(item);                             //add them to the list

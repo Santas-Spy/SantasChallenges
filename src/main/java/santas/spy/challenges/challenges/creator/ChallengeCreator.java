@@ -40,8 +40,8 @@ public class ChallengeCreator {
                 areaSelector = new AreaSelector(player);
                 break;
             case GOAL:
-                System.out.println("Corner1: " + corner1.toString());
-                System.out.println("Corner2: " + corner2.toString());
+                SantasChallenges.PLUGIN.getLogger().info("Corner1: " + corner1.toString());
+                SantasChallenges.PLUGIN.getLogger().info("Corner2: " + corner2.toString());
                 new CreateChallengeGUI(player, this);
                 break;
             case SPAWN:

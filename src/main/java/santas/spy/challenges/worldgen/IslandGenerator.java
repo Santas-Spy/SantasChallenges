@@ -58,9 +58,7 @@ public class IslandGenerator {
                 if (locations.get(i) == null) {                                                     //empty slot means a challenge was here but has since been removed. This is a valid spot
                     found = true;
                     locations.add(i, player);                                           
-                    System.out.println("Inside loop: " + locations.toString());                     //TODO: this is a debug message. Change to proper debug system once implemented
                 } else {
-                    SantasChallenges.PLUGIN.getLogger().info("[" + pos[0] + "," + pos[1] + "]");    //TODO: this is a debug message. Change to proper debug system once implemented
                     pos[0] += dir.move()[0];
                     pos[1] += dir.move()[1];
 
@@ -83,6 +81,7 @@ public class IslandGenerator {
             }
         }
 
+        SantasChallenges.PLUGIN.getLogger().info("Making new island at index [" + pos[0] + ", " + pos[1] + "]");
         return pos;
     }
 
@@ -98,7 +97,7 @@ public class IslandGenerator {
         Location generateLocation = new Location(WorldLoader.loadWorld(), pos[0] * Constants.DIST_BETWEEN_ISLANDS, 64, pos[1] * Constants.DIST_BETWEEN_ISLANDS);
 
         structure.place(generateLocation, true, StructureRotation.NONE, Mirror.NONE, 0, 1, new Random());
-        System.out.println("Made new island at " + generateLocation.toString());    //TODO: This is a debug message to be removed or adapted
+        SantasChallenges.PLUGIN.getLogger().info("Made new island at " + generateLocation.toString());    //TODO: This is a debug message to be removed or adapted
         return generateLocation;
     }
 

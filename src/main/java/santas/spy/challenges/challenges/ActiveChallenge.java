@@ -3,11 +3,13 @@ package santas.spy.challenges.challenges;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryEvent;
 import org.bukkit.event.inventory.InventoryInteractEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 
@@ -58,12 +60,17 @@ public class ActiveChallenge {
      * */
     public void checkWin()
     {
-        if (goal.isSatisfied()) {
-            player.sendMessage("Congrats! You beat the challenge");
-            listener.close();
-        } else {
-            player.sendMessage("The goal as not satisfied");
-        }
+        Bukkit.getScheduler().runTask(SantasChallenges.PLUGIN, new Runnable() {
+            @Override
+            public void run() {
+                if (goal.isSatisfied()) {
+                    player.sendMessage("Congrats! You beat the challenge");
+                    listener.close();
+                } else {
+                    player.sendMessage("The goal as not satisfied");
+                }
+            }
+        });
     }
 
     /**
@@ -81,9 +88,9 @@ public class ActiveChallenge {
         }
 
         @EventHandler
-        public void onPlayerEvent(InventoryInteractEvent event)
+        public void onPlayerEvent(InventoryEvent event)
         {
-            event.getWhoClicked().sendMessage("You moved an item");
+            event.getView().getPlayer().sendMessage("You interacted with an inventory");
             if (goal.isGoalBlock(event.getInventory().getHolder().getInventory().getLocation())) {
                 checkWin();
             }
@@ -92,6 +99,7 @@ public class ActiveChallenge {
         public void open()
         {
             SantasChallenges.PLUGIN.getServer().getPluginManager().registerEvents(this, SantasChallenges.PLUGIN);
+            SantasChallenges.PLUGIN.getLogger().info("Starting new listener");
         }
 
         public void close()
@@ -110,9 +118,7 @@ public class ActiveChallenge {
     private Location getStartLocation(int[] offset, Location origin)
     {
         Location start = new Location(origin.getWorld(), origin.getBlockX(), origin.getBlockY(), origin.getBlockZ());
-        System.out.println(start.toString());
         start.add(offset[0], offset[1], offset[2]);
-        System.out.println(start.toString());
         return start;
     }
 }
