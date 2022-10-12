@@ -1,0 +1,10 @@
+main: santas.spy.challenges.SantasChallenges
+name: SantasChallenges
+version: 0.1
+api-version: 1.19
+load: POSTWORLD
+softdepend: [Multiverse-Core]
+commands:
+  santaschallenges:
+    description: main command
+permissions:
