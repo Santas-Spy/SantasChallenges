@@ -114,10 +114,8 @@ public class ChestGoalCreator {
      * */
     protected void setChest(Location chest)
     {
-        int offsetX = chest.getBlockX() - creator.corner1.getBlockX();
-        int offsetY = chest.getBlockY() - creator.corner1.getBlockY();
-        int offsetZ = chest.getBlockZ() - creator.corner1.getBlockZ();
-        Goal goal = new ChestGoal(items, offsetX, offsetY, offsetZ);
+        int[] offset = ChallengeCreator.getOffset(chest, creator);
+        Goal goal = new ChestGoal(items, offset[0], offset[1], offset[2]);
         creator.setGoal(goal);  //Hand the process back to the creator
     }
 }

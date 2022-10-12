@@ -12,15 +12,15 @@ import santas.spy.challenges.SantasChallenges;
 
 public class BlockSelector {
     private Location block;
-    private Location corner1;
     private int[] offset = null;
     private Player player;
     private ClickListener listener;
+    private ChallengeCreator creator;
 
-    public BlockSelector(Player player, Location corner1)
+    public BlockSelector(Player player, ChallengeCreator creator)
     {
         this.player = player;
-        this.corner1 = corner1;
+        this.creator = creator;
         selectLocation();
     }
 
@@ -71,10 +71,7 @@ public class BlockSelector {
     {
         block = clicked.getLocation();
         block.setY(block.getY() + 1.2);
-        offset = new int[3];
-        offset[0] = block.getBlockX() - corner1.getBlockX();
-        offset[1] = block.getBlockY() - corner1.getBlockY();
-        offset[2] = block.getBlockZ() - corner1.getBlockZ();
+        offset = ChallengeCreator.getOffset(block, creator);
         player.sendMessage("Type /santaschallenges confirm to save this challenge");
     }
 

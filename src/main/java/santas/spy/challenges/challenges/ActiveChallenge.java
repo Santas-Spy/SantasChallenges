@@ -110,7 +110,9 @@ public class ActiveChallenge {
     private Location getStartLocation(int[] offset, Location origin)
     {
         Location start = new Location(origin.getWorld(), origin.getBlockX(), origin.getBlockY(), origin.getBlockZ());
+        System.out.println(start.toString());
         start.add(offset[0], offset[1], offset[2]);
+        System.out.println(start.toString());
         return start;
     }
 }

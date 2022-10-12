@@ -4,7 +4,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.structure.Structure;
 import org.bukkit.structure.StructureManager;
-import org.bukkit.util.BlockVector;
 
 import santas.spy.challenges.SantasChallenges;
 import santas.spy.challenges.challenges.Challenge;
@@ -41,10 +40,12 @@ public class ChallengeCreator {
                 areaSelector = new AreaSelector(player);
                 break;
             case GOAL:
+                System.out.println("Corner1: " + corner1.toString());
+                System.out.println("Corner2: " + corner2.toString());
                 new CreateChallengeGUI(player, this);
                 break;
             case SPAWN:
-                blockSelector = new BlockSelector(player, corner1);
+                blockSelector = new BlockSelector(player, this);
                 break;
             case FINISHED:
                 Challenge challenge = new Challenge(name, structure, goal, spawnOffset);
@@ -102,6 +103,14 @@ public class ChallengeCreator {
         this.goal = goal;
         stage = stage.advance();
         nextStep();
+    }
+
+    public static int[] getOffset(Location location, ChallengeCreator instance)
+    {
+        int x = location.getBlockX() - instance.corner2.getBlockX();  // use corner2 because corner2 will be the min corner
+        int y = location.getBlockY() - instance.corner2.getBlockY();  // and the min corner will be the one the island is generated at
+        int z = location.getBlockZ() - instance.corner2.getBlockZ();
+        return new int[] {x, y, z};
     }
 
     private enum Stage {

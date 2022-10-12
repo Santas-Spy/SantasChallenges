@@ -82,7 +82,8 @@ public class ChestGoal extends Goal {
     public boolean start(Location corner1)
     {
         boolean found = false;
-        Block block = corner1.add(chestOffset[0], chestOffset[1], chestOffset[2]).getBlock();   //find the block that should be a chest
+        //find the block that *should* be a chest
+        Block block = new Location(corner1.getWorld(), corner1.getX() + chestOffset[0], corner1.getY() + chestOffset[1], corner1.getZ() + chestOffset[2]).getBlock();
 
         if (block.getType() == Material.CHEST)
         {
