@@ -1,5 +1,5 @@
 # SantasChallenges
-Adds tools for creating custom challenges and games and letting other players play them.
+Adds tools for creating custom games and challenges, then letting other players play them.
 
 Players can create blank islands to create a custom challenge on for other players to enjoy. Challenges currently support two types.
 - Chest Challenges: Requires the player to get certain items into a certain chest to complete the challenge.
