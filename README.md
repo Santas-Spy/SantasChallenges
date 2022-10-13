@@ -49,7 +49,7 @@ Success! The challenge will now appear in `/santaschallenges gui` and selecting 
 
 ## Some planned features:
 - Challenge List:
-  - Voting system where players
+  - Voting system where players can upvote and downvote challenges
   - Different sorting styles for the list
      - new: Most recent
      - best: Most upvoted
